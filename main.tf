@@ -432,10 +432,6 @@ resource "aws_instance" "f5_bigip" {
       device_index         = (length(local.ext_interfaces) + 1) + index(tolist(toset([aws_network_interface.private1[count.index].id])), network_interface.value)
     }
   }
-  provisioner "local-exec" {
-    //  command = "aws ec2 wait instance-status-ok --instance-ids ${aws_instance.f5_bigip[count.index].id} --region ap-south-1"
-    command = "sleep 300"
-  }
   tags = {
     Name = format("%s-%d", local.instance_prefix, count.index)
   }
